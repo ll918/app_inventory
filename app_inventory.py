@@ -1,4 +1,12 @@
 #!/usr/bin/env python3
+"""
+On OSX, build an inventory of applications found in the Applications directory.
+
+The inventory contains the name, path and version of the applications.  The
+version data is obtained with the 'mdls' command.
+
+The data gathered is save to json file.
+"""
 import json
 import os
 import subprocess
@@ -9,6 +17,8 @@ file = 'inventory.json'
 
 
 def build_inventory(app_path):
+    # Build applications inventory dictionary.
+
     for item in os.scandir(app_path):
         if item.name.endswith('.app'):
             path = clean_path(item.path)
@@ -29,6 +39,12 @@ def build_inventory(app_path):
 
 
 def clean_path(app_path):
+    """ Add escape character('\') to file names.
+
+    Spaces and other characters in path can cause problems when executing os
+    command if not 'escaped'.
+    """
+
     if ' ' in app_path:
         app_path = '\ '.join(app_path.split())
     if '(' in app_path:
