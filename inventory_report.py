@@ -11,7 +11,7 @@ with open(file) as f:
 
 app_lst = []
 for k, v in inventory.items():
-    entry = ' '.join([k, v['version']])
+    entry = ' '.join([k.rstrip('.app'), v['version']])
     app_lst.append(entry)
 
 app_lst.sort(key=str.lower)
