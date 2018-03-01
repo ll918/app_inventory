@@ -13,14 +13,13 @@ import json
 import os
 import plistlib
 
-app_dir = '/Applications'
-inventory = {}
 file = 'inventory.json'
 
 
-def build_inventory(app_path):
+def build_inventory(app_path='/Applications'):
     # Build applications inventory dictionary.
 
+    inventory = {}
     for item in os.scandir(app_path):
         if item.name.endswith('.app'):
             path = item.path
@@ -42,7 +41,20 @@ def build_inventory(app_path):
     if inventory:
         with open(file, 'w') as f:
             json.dump(inventory, f)
-    return
+    return inventory
 
 
-build_inventory(app_dir)
+inventory = build_inventory()
+
+app_lst = []
+for k, v in inventory.items():
+    entry = ' '.join([k.rstrip('.app'), v['version']])
+    app_lst.append(entry)
+app_lst.sort(key=str.lower)
+
+print('Applications inventory')
+print()
+for i in app_lst:
+    print(i)
+print()
+print(len(inventory), 'applications installed.')
