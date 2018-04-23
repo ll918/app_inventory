@@ -4,7 +4,7 @@ On OSX, build an inventory of applications found in the Applications directory.
 
 The inventory contains the name, path and version of the applications.
 
-The data gathered is save to json file.
+The data gathered is saved to json file.
 
 https://docs.python.org/3/library/plistlib.html
 https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/plist.5.html
